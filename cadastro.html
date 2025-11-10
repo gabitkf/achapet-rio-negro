@@ -38,5 +38,64 @@
   </main>
 
   <script src="script.js"></script>
+  <!-- Scripts do Firebase -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
+  import { getFirestore, collection, addDoc, getDocs } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "SUA-CHAVE-AQUI",
+    authDomain: "achapet-rio-negro.firebaseapp.com",
+    projectId: "achapet-rio-negro",
+    storageBucket: "achapet-rio-negro.appspot.com",
+    messagingSenderId: "000000000000",
+    appId: "1:000000000000:web:xxxxxxxxxxxxxxxx"
+  };
+
+  // Inicializa o Firebase
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+  // Função para cadastrar animal
+  document.getElementById("cadastroForm").addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const nome = document.getElementById("nome").value;
+    const descricao = document.getElementById("descricao").value;
+    const contato = document.getElementById("contato").value;
+
+    await addDoc(collection(db, "animais"), {
+      nome,
+      descricao,
+      contato,
+      data: new Date().toISOString()
+    });
+
+    alert("Animal cadastrado com sucesso!");
+    e.target.reset();
+    carregarAnimais();
+  });
+
+  // Função para carregar os animais
+  async function carregarAnimais() {
+    const lista = document.getElementById("listaAnimais");
+    lista.innerHTML = "";
+    const querySnapshot = await getDocs(collection(db, "animais"));
+    querySnapshot.forEach((doc) => {
+      const animal = doc.data();
+      const div = document.createElement("div");
+      div.innerHTML = `
+        <h3>${animal.nome}</h3>
+        <p>${animal.descricao}</p>
+        <p><strong>Contato:</strong> ${animal.contato}</p>
+      `;
+      lista.appendChild(div);
+    });
+  }
+
+  document.addEventListener("DOMContentLoaded", carregarAnimais);
+</script>
+
 </body>
 </html>
+
