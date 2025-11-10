@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cadastrar Animal Perdido</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>Cadastrar Animal Perdido</h1>
+    <nav>
+      <a href="index.html">Início</a>
+      <a href="cadastro.html">Cadastro</a>
+      <a href="adocao.html">Adoção</a>
+      <a href="contato.html">Contato</a>
+    </nav>
+  </header>
+
+  <main>
+    <form id="cadastroForm">
+      <label>Nome do animal:</label>
+      <input type="text" id="nome" required>
+
+      <label>Descrição:</label>
+      <textarea id="descricao" required></textarea>
+
+      <label>Foto:</label>
+      <input type="file" id="foto" accept="image/*">
+
+      <label>Contato do tutor:</label>
+      <input type="text" id="contato" placeholder="WhatsApp ou telefone" required>
+
+      <button type="submit">Cadastrar</button>
+    </form>
+
+    <div id="listaAnimais"></div>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
