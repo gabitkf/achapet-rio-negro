@@ -1,23 +1,40 @@
-// Função para carregar os animais salvos no localStorage
+// --- FUNÇÃO PARA CARREGAR ANIMAIS SALVOS ---
 function carregarAnimais() {
   const lista = document.getElementById("listaAnimais");
   const animaisSalvos = JSON.parse(localStorage.getItem("animais")) || [];
 
-  lista.innerHTML = ""; // limpa a lista antes de exibir novamente
+  lista.innerHTML = ""; // Limpa a lista antes de exibir novamente
 
-  animaisSalvos.forEach(animal => {
+  animaisSalvos.forEach((animal, index) => {
     const div = document.createElement("div");
     div.classList.add("animal");
     div.innerHTML = `
       <h3>${animal.nome}</h3>
       <p>${animal.descricao}</p>
       <p><strong>Contato:</strong> ${animal.contato}</p>
+      <button class="remover" data-index="${index}">Remover</button>
     `;
     lista.appendChild(div);
   });
+
+  // Adiciona função de remover
+  document.querySelectorAll(".remover").forEach(botao => {
+    botao.addEventListener("click", (e) => {
+      const i = e.target.dataset.index;
+      removerAnimal(i);
+    });
+  });
 }
 
-// Função para adicionar um novo animal
+// --- FUNÇÃO PARA REMOVER UM ANIMAL ---
+function removerAnimal(index) {
+  const animais = JSON.parse(localStorage.getItem("animais")) || [];
+  animais.splice(index, 1); // remove o item pelo índice
+  localStorage.setItem("animais", JSON.stringify(animais));
+  carregarAnimais();
+}
+
+// --- FUNÇÃO PARA CADASTRAR NOVO ANIMAL ---
 document.getElementById("cadastroForm")?.addEventListener("submit", function(e) {
   e.preventDefault();
 
@@ -41,5 +58,6 @@ document.getElementById("cadastroForm")?.addEventListener("submit", function(e) 
   this.reset();
 });
 
-// Carrega os cadastros automaticamente ao abrir a página
+// --- CARREGA AUTOMATICAMENTE AO ABRIR A PÁGINA ---
 document.addEventListener("DOMContentLoaded", carregarAnimais);
+
