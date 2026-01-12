@@ -1,105 +1,49 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
+  <meta charset="UTF-8">
+  <title>Cadastrar Animal Perdido</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cadastrar Animal Perdido</title>
+
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header>
-    <h1>Cadastrar Animal Perdido</h1>
-    <nav>
-      <a href="index.html">Início</a>
-      <a href="cadastro.html">Cadastro</a>
-      <a href="adocao.html">Adoção</a>
-      <a href="contato.html">Contato</a>
-    </nav>
-  </header>
 
-  <main>
-    <form id="cadastroForm">
-      <label>Nome do animal:</label>
-      <input type="text" id="nome" required>
+<header>
+  <h1>Cadastrar Animal Perdido</h1>
+  <nav>
+    <a href="index.html">Início</a>
+    <a href="cadastro.html">Cadastro</a>
+    <a href="adocao.html">Adoção</a>
+    <a href="contato.html">Contato</a>
+  </nav>
+</header>
 
-      <label>Descrição:</label>
-      <textarea id="descricao" required></textarea>
+<main>
+  <form id="cadastroForm">
+    <label>Nome do animal</label>
+    <input type="text" id="nome" required>
 
-      <label>Foto:</label>
-      <input type="file" id="foto" accept="image/*">
+    <label>Descrição</label>
+    <textarea id="descricao" required></textarea>
 
-      <label>Contato do tutor:</label>
-      <input type="text" id="contato" placeholder="WhatsApp ou telefone" required>
+    <label>Contato do tutor</label>
+    <input type="text" id="contato" required>
 
-      <button type="submit">Cadastrar</button>
-    </form>
+    <button type="submit">Cadastrar</button>
+  </form>
 
-    <div id="listaAnimais"></div>
-  </main>
+  <section id="listaAnimais"></section>
+</main>
 
-  <script src="script.js"></script>
-  <!-- Scripts do Firebase -->
-<script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
-  import { getFirestore, collection, addDoc, getDocs } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
+<footer>
+  © 2025 • AchaPet Rio Negro
+</footer>
 
-  const firebaseConfig = {
-    apiKey: "SUA-CHAVE-AQUI",
-    authDomain: "achapet-rio-negro.firebaseapp.com",
-    projectId: "achapet-rio-negro",
-    storageBucket: "achapet-rio-negro.appspot.com",
-    messagingSenderId: "000000000000",
-    appId: "1:000000000000:web:xxxxxxxxxxxxxxxx"
-  };
-
-  // Inicializa o Firebase
-  const app = initializeApp(firebaseConfig);
-  const db = getFirestore(app);
-
-  // Função para cadastrar animal
-  document.getElementById("cadastroForm").addEventListener("submit", async (e) => {
-    e.preventDefault();
-
-    const nome = document.getElementById("nome").value;
-    const descricao = document.getElementById("descricao").value;
-    const contato = document.getElementById("contato").value;
-
-    await addDoc(collection(db, "animais"), {
-      nome,
-      descricao,
-      contato,
-      data: new Date().toISOString()
-    });
-
-    alert("Animal cadastrado com sucesso!");
-    e.target.reset();
-    carregarAnimais();
-  });
-
-  // Função para carregar os animais
-  async function carregarAnimais() {
-    const lista = document.getElementById("listaAnimais");
-    lista.innerHTML = "";
-    const querySnapshot = await getDocs(collection(db, "animais"));
-    querySnapshot.forEach((doc) => {
-      const animal = doc.data();
-      const div = document.createElement("div");
-      div.innerHTML = `
-        <h3>${animal.nome}</h3>
-        <p>${animal.descricao}</p>
-        <p><strong>Contato:</strong> ${animal.contato}</p>
-      `;
-      lista.appendChild(div);
-    });
-  }
-
-  document.addEventListener("DOMContentLoaded", carregarAnimais);
-</script>
-
+<script src="script.js"></script>
 </body>
 </html>
-
-
