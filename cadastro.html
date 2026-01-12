@@ -46,20 +46,23 @@
 
 <script src="script.js"></script>
 <script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
-  import { getFirestore, collection, addDoc, getDocs } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
+ // Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
 
-  const firebaseConfig = {
-    apiKey: "SUA_API_KEY",
-    authDomain: "achapet-rio-negro.firebaseapp.com",
-    projectId: "achapet-rio-negro",
-    storageBucket: "achapet-rio-negro.appspot.com",
-    messagingSenderId: "SEU_ID",
-    appId: "SEU_APP_ID"
-  };
+// Your web app's Firebase configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyAUdxwnfX2QVhVqXUu_fckMzSA2fIiym9Y",
+  authDomain: "achapet-rio-d4fe0.firebaseapp.com",
+  projectId: "achapet-rio-d4fe0",
+  storageBucket: "achapet-rio-d4fe0.firebasestorage.app",
+  messagingSenderId: "388933186374",
+  appId: "1:388933186374:web:f5b3dc0afbb33e9a0d2b47"
+};
 
-  const app = initializeApp(firebaseConfig);
-  const db = getFirestore(app);
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
 
   // CADASTRAR ANIMAL
   document.getElementById("cadastroForm").addEventListener("submit", async (e) => {
