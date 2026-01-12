@@ -2,54 +2,103 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <title>Adoção Responsável</title>
+  <title>Adoção</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+
+  <style>
+    body {
+      font-family: Poppins, sans-serif;
+      background: #f4f6f8;
+      margin: 0;
+    }
+    header {
+      background: #ff9800;
+      color: white;
+      padding: 15px;
+      text-align: center;
+    }
+    .lista {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+      padding: 20px;
+    }
+    .card {
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      overflow: hidden;
+    }
+    .card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+    .card div {
+      padding: 15px;
+    }
+    .card h3 {
+      margin: 0;
+    }
+    .contato {
+      background: #ff9800;
+      color: white;
+      padding: 8px;
+      margin-top: 10px;
+      border-radius: 5px;
+      text-align: center;
+    }
+  </style>
 </head>
+
 <body>
 
 <header>
-  <h1>Adoção Responsável</h1>
-  <nav>
-    <a href="index.html">Início</a>
-    <a href="cadastro.html">Cadastro</a>
-    <a href="adocao.html">Adoção</a>
-    <a href="contato.html">Contato</a>
-  </nav>
+  <h1>Animais para Adoção</h1>
 </header>
 
-<main>
-  <section id="listaAnimais" class="grid"></section>
-</main>
-
-<footer>
-  © 2025 • AchaPet Rio Negro
-</footer>
+<section class="lista" id="listaAnimais"></section>
 
 <script type="module">
-    async function carregarAnimais() {
-    const snapshot = await getDocs(collection(db, "animais"));
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+  import {
+    getFirestore,
+    collection,
+    getDocs
+  } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-    snapshot.forEach((doc) => {
-      const animal = doc.data();
+  const firebaseConfig = {
+    apiKey: "AIzaSyAUdxwnfX2QVhVqXu_fckMzSA2fIiym9Y",
+    authDomain: "achapet-rio-d4fe0.firebaseapp.com",
+    projectId: "achapet-rio-d4fe0",
+    storageBucket: "achapet-rio-d4fe0.appspot.com",
+    messagingSenderId: "388933186374",
+    appId: "1:388933186374:web:f5b3dc0afbb33e9a0d2b47"
+  };
 
-      const card = document.createElement("div");
-      card.className = "animal";
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
 
-      card.innerHTML = `
-        <img src="${animal.fotoURL}" alt="${animal.nome}"> 
-        <h3>${animal.nome}</h3>
-        <p>${animal.descricao}</p>
-        <p><strong>Contato:</strong> ${animal.contato}</p>
-      `;
+  const lista = document.getElementById("listaAnimais");
 
-      lista.appendChild(card);
-    });
-  }
+  const querySnapshot = await getDocs(collection(db, "animais"));
 
-  carregarAnimais();
+  querySnapshot.forEach((doc) => {
+    const animal = doc.data();
+
+    lista.innerHTML += `
+      <div class="card">
+        <img src="${animal.foto}" alt="${animal.nome}">
+        <div>
+          <h3>${animal.nome}</h3>
+          <p>${animal.descricao}</p>
+          <div class="contato">Contato: ${animal.contato}</div>
+        </div>
+      </div>
+    `;
+  });
 </script>
 
 </body>
