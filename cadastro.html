@@ -33,6 +33,9 @@
     <label>Descrição</label>
     <textarea id="descricao" required></textarea>
 
+    <label>Link da foto do animal</label>
+    <input type="url" id="fotoURL" placeholder="https://..." required>
+
     <label>Contato do tutor</label>
     <input type="text" id="contato" required>
 
@@ -44,7 +47,7 @@
   © 2025 • AchaPet Rio Negro
 </footer>
 
-<!-- 🔥 FIREBASE FIRESTORE (VERSÃO FINAL CORRETA) -->
+<!-- FIREBASE FIRESTORE -->
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
   import {
@@ -53,23 +56,18 @@
     addDoc
   } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-  // 🔴 CONFIGURAÇÃO DO SEU PROJETO FIREBASE
   const firebaseConfig = {
-    apiKey: "AIzaSyAUdxwnfX2QVhVqXUu_fckMzSA2fIiym9Y",
-    authDomain: "achapet-rio-d4fe0.firebaseapp.com",
-    projectId: "achapet-rio-d4fe0",
-    storageBucket: "achapet-rio-d4fe0.appspot.com",
-    messagingSenderId: "388933186374",
-    appId: "1:388933186374:web:f5b3dc0afbb33e9a0d2b47"
+    apiKey: "SUA_API_KEY",
+    authDomain: "SEU_PROJETO.firebaseapp.com",
+    projectId: "SEU_PROJECT_ID",
+    storageBucket: "SEU_PROJETO.appspot.com",
+    messagingSenderId: "SEU_ID",
+    appId: "SEU_APP_ID"
   };
 
-  // Inicializa Firebase
   const app = initializeApp(firebaseConfig);
   const db = getFirestore(app);
 
-  console.log("🔥 Firebase Firestore conectado com sucesso");
-
-  // CADASTRO DE ANIMAL
   document.getElementById("cadastroForm").addEventListener("submit", async (e) => {
     e.preventDefault();
 
@@ -78,6 +76,7 @@
         nome: document.getElementById("nome").value,
         descricao: document.getElementById("descricao").value,
         contato: document.getElementById("contato").value,
+        fotoURL: document.getElementById("fotoURL").value,
         criadoEm: new Date()
       });
 
@@ -85,11 +84,9 @@
       e.target.reset();
 
     } catch (erro) {
-      console.error("❌ Erro ao salvar:", erro);
-      alert("Erro ao salvar no banco de dados");
+      console.error("Erro:", erro);
     }
   });
 </script>
-
 </body>
 </html>
