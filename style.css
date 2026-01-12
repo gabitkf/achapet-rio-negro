@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+
 * {
   box-sizing: border-box;
   font-family: 'Poppins', sans-serif;
@@ -5,77 +7,104 @@
 
 body {
   margin: 0;
-  background: #f4f6f8;
+  background: linear-gradient(135deg, #e8f5e9, #f4f6f8);
+  min-height: 100vh;
 }
 
+/* HEADER / MENU */
+
 header {
-  background: #4CAF50;
+  background: linear-gradient(135deg, #43a047, #66bb6a);
   color: white;
-  padding: 15px;
+  padding: 25px 15px;
   text-align: center;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+header h1 {
+  margin: 0;
+  font-weight: 600;
 }
 
 nav {
-  margin-top: 10px;
+  margin-top: 12px;
 }
 
 nav a {
   color: white;
-  margin: 0 10px;
+  margin: 0 12px;
   text-decoration: none;
   font-weight: 500;
+  padding-bottom: 3px;
+  border-bottom: 2px solid transparent;
+  transition: all 0.3s ease;
 }
 
 nav a:hover {
-  text-decoration: underline;
+  border-bottom: 2px solid #fff;
 }
 
+/* CONTEÚDO */
+
 main {
-  padding: 20px;
+  padding: 30px 15px;
 }
 
 /* FORMULÁRIOS */
 
 form {
-  max-width: 420px;
-  margin: 30px auto;
+  max-width: 440px;
+  margin: 0 auto;
   background: white;
-  padding: 25px;
-  border-radius: 12px;
-  box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+  padding: 30px;
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+  animation: fadeUp 0.6s ease;
 }
 
 label {
   display: block;
-  margin-top: 12px;
-  font-weight: 600;
+  margin-top: 14px;
+  font-weight: 500;
 }
 
 input, textarea {
   width: 100%;
-  padding: 10px;
+  padding: 12px;
   margin-top: 6px;
-  border-radius: 6px;
+  border-radius: 8px;
   border: 1px solid #ccc;
+  font-size: 14px;
+}
+
+input:focus, textarea:focus {
+  outline: none;
+  border-color: #66bb6a;
 }
 
 textarea {
   resize: vertical;
 }
 
+/* BOTÕES */
+
 button {
-  margin-top: 20px;
+  margin-top: 22px;
   width: 100%;
-  padding: 12px;
-  background: #4CAF50;
+  padding: 14px;
+  background: linear-gradient(135deg, #43a047, #66bb6a);
   color: white;
   border: none;
-  border-radius: 8px;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 500;
   cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 button:hover {
-  background: #43a047;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(0,0,0,0.2);
 }
 
 /* ADOÇÃO */
@@ -83,24 +112,53 @@ button:hover {
 .lista {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 20px;
+  gap: 25px;
 }
 
 .card {
   background: white;
-  padding: 20px;
-  border-radius: 12px;
-  box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+  padding: 25px;
+  border-radius: 18px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+  transition: transform 0.2s ease;
 }
 
-/* CONTATO */
+.card:hover {
+  transform: translateY(-4px);
+}
+
+.card h3 {
+  margin-top: 0;
+  color: #2e7d32;
+}
+
+/* CONTATO / HOME */
 
 .contato-box {
-  max-width: 500px;
-  margin: 40px auto;
+  max-width: 520px;
+  margin: 0 auto;
   background: white;
-  padding: 25px;
-  border-radius: 12px;
-  box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+  padding: 35px;
+  border-radius: 18px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.12);
   text-align: center;
+  animation: fadeUp 0.6s ease;
+}
+
+.contato-box h2 {
+  margin-top: 0;
+  color: #2e7d32;
+}
+
+/* ANIMAÇÃO SUAVE */
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
