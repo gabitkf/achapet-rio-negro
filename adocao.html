@@ -5,10 +5,7 @@
   <title>Adoção Responsável</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -24,17 +21,57 @@
 </header>
 
 <main>
-  <p class="texto-centro">
-    Animais cadastrados pela comunidade e disponíveis para adoção ou localização.
-  </p>
-
-  <section id="listaAdocao"></section>
+  <section id="listaAnimais" class="grid"></section>
 </main>
 
 <footer>
   © 2025 • AchaPet Rio Negro
 </footer>
 
-<script src="script.js"></script>
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+  import {
+    getFirestore,
+    collection,
+    getDocs
+  } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "SUA_API_KEY",
+    authDomain: "SEU_PROJETO.firebaseapp.com",
+    projectId: "SEU_PROJECT_ID",
+    storageBucket: "SEU_PROJETO.appspot.com",
+    messagingSenderId: "SEU_ID",
+    appId: "SEU_APP_ID"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+  const lista = document.getElementById("listaAnimais");
+
+  async function carregarAnimais() {
+    const snapshot = await getDocs(collection(db, "animais"));
+
+    snapshot.forEach((doc) => {
+      const animal = doc.data();
+
+      const card = document.createElement("div");
+      card.className = "animal";
+
+      card.innerHTML = `
+        <img src="${animal.fotoURL}" alt="${animal.nome}">
+        <h3>${animal.nome}</h3>
+        <p>${animal.descricao}</p>
+        <p><strong>Contato:</strong> ${animal.contato}</p>
+      `;
+
+      lista.appendChild(card);
+    });
+  }
+
+  carregarAnimais();
+</script>
+
 </body>
 </html>
