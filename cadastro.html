@@ -2,37 +2,18 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <title>Cadastrar Animal</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+  <title>Cadastro</title>
 </head>
 
 <body>
 
-<header>
-  <h1>Cadastrar Animal</h1>
-  <nav>
-    <a href="index.html">Início</a>
-    <a href="cadastro.html">Cadastro</a>
-    <a href="adocao.html">Adoção</a>
-  </nav>
-</header>
+<h2>Cadastrar Animal</h2>
 
 <form id="cadastroForm">
-  <label>Nome do animal</label>
-  <input type="text" id="nome" required>
-
-  <label>Descrição</label>
-  <textarea id="descricao" required></textarea>
-
-  <label>Contato</label>
-  <input type="text" id="contato" required>
-
-  <label>Link da foto</label>
-  <input type="url" id="foto" placeholder="https://..." required>
-
+  <input type="text" id="nome" placeholder="Nome" required><br><br>
+  <textarea id="descricao" placeholder="Descrição" required></textarea><br><br>
+  <input type="text" id="contato" placeholder="Contato" required><br><br>
+  <input type="text" id="foto" placeholder="Link da foto" required><br><br>
   <button type="submit">Cadastrar</button>
 </form>
 
@@ -44,7 +25,6 @@
     apiKey: "AIzaSyAUdxwnfX2QVhVqXUu_fckMzSA2fIiym9Y",
     authDomain: "achapet-rio-d4fe0.firebaseapp.com",
     projectId: "achapet-rio-d4fe0",
-    storageBucket: "achapet-rio-d4fe0.appspot.com",
     messagingSenderId: "388933186374",
     appId: "1:388933186374:web:f5b3dc0afbb33e9a0d2b47"
   };
@@ -52,38 +32,35 @@
   const app = initializeApp(firebaseConfig);
   const db = getFirestore(app);
 
-  document.getElementById("cadastroForm").addEventListener("submit", async (e) => {
+  alert("Firebase inicializado");
+
+  const form = document.getElementById("cadastroForm");
+
+  form.addEventListener("submit", async function(e) {
     e.preventDefault();
 
-    const nome = document.getElementById("nome").value.trim();
-    const descricao = document.getElementById("descricao").value.trim();
-    const contato = document.getElementById("contato").value.trim();
-    const foto = document.getElementById("foto").value.trim();
-
-    if (!nome || !descricao || !contato || !foto) {
-      alert("Preencha todos os campos");
-      return;
-    }
+    const nome = document.getElementById("nome").value;
+    const descricao = document.getElementById("descricao").value;
+    const contato = document.getElementById("contato").value;
+    const foto = document.getElementById("foto").value;
 
     try {
       await addDoc(collection(db, "animais"), {
-        nome,
-        descricao,
-        contato,
-        foto,
-        criadoEm: new Date()
+        nome: nome,
+        descricao: descricao,
+        contato: contato,
+        foto: foto
       });
 
-      alert("✅ Animal cadastrado com sucesso!");
-      e.target.reset();
+      alert("CADASTRO FEITO COM SUCESSO");
+      form.reset();
 
     } catch (erro) {
-      console.error("Erro ao cadastrar:", erro);
-      alert("Erro ao cadastrar. Veja o console.");
+      alert("ERRO AO SALVAR");
+      console.error(erro);
     }
   });
 </script>
-
 
 </body>
 </html>
