@@ -162,3 +162,22 @@ button:hover {
     transform: translateY(0);
   }
 }
+/* FOOTER */
+
+footer {
+  background: #2e7d32;
+  color: white;
+  text-align: center;
+  padding: 20px 10px;
+  margin-top: 40px;
+}
+
+footer p {
+  margin: 6px 0;
+  font-size: 14px;
+  opacity: 0.9;
+}
+
+footer span {
+  font-weight: 500;
+}
